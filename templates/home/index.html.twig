@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Liste des Élèves</h1>
+
+<ul>
+    {% for eleve in eleves %}
+        <li>{{ eleve.prenom }} {{ eleve.nom }} (Email: {{ eleve.email }})</li>
+    {% else %}
+        <li>Aucun élève trouvé.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

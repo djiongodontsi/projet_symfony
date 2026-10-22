@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Notes{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 fw-bold text-dark">📝 Liste des Notes</h1>
+        <a href="{{ path('app_note_new') }}" class="btn btn-primary shadow-sm">+ Ajouter une note</a>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-dark text-uppercase fs-7">
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Élève</th>
+                        <th>Cours</th>
+                        <th>Valeur</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for note in notes %}
+                        <tr>
+                            <td class="ps-4">{{ note.id }}</td>
+                            <td class="fw-semibold">
+                                {% if note.eleve %}{{ note.eleve.nom }} {{ note.eleve.prenom }}{% else %}N/A{% endif %}
+                            </td>
+                            <td>
+                                {% if note.cours %}{{ note.cours.nomCours ?? note.cours.libelle }}{% else %}N/A{% endif %}
+                            </td>
+                            <td>
+                                <span class="badge bg-dark fs-6">{{ note.valeur }}/20</span>
+                            </td>
+                            <td class="text-end pe-4">
+                                <a href="{{ path('app_note_show', {'id': note.id}) }}" class="btn btn-sm btn-outline-info">Voir</a>
+                                <a href="{{ path('app_note_edit', {'id': note.id}) }}" class="btn btn-sm btn-outline-warning">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">Aucune note enregistrée.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

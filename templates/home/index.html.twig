@@ -1,13 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<h1>Liste des Élèves</h1>
+{% block title %}Tableau de bord - Gestion Scolaire{% endblock %}
 
-<ul>
-    {% for eleve in eleves %}
-        <li>{{ eleve.prenom }} {{ eleve.nom }} (Email: {{ eleve.email }})</li>
-    {% else %}
-        <li>Aucun élève trouvé.</li>
-    {% endfor %}
-</ul>
+{% block body %}
+<div class="container py-4">
+    <!-- En-tête de bienvenue -->
+    <div class="p-5 mb-4 bg-white rounded-4 shadow-sm border-0">
+        <div class="container-fluid py-2">
+            <h1 class="display-5 fw-bold text-dark">🎓 Portail de Gestion Scolaire</h1>
+            <p class="col-md-8 fs-5 text-secondary mt-2">Bienvenue sur votre espace d'administration. Pilotez l'ensemble de votre établissement en un clin d'œil.</p>
+        </div>
+    </div>
+
+    <!-- Grille des modules -->
+    <div class="row g-4">
+        <!-- Élèves -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 bg-primary text-white rounded-4">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase fw-semibold opacity-75">Élèves</h6>
+                        <h2 class="display-6 fw-bold my-2">{{ totalEleves ?? 0 }}</h2>
+                    </div>
+                    <a href="{{ path('app_eleves_index') }}" class="btn btn-light btn-sm fw-semibold mt-3 text-primary align-self-start shadow-sm">Gérer les élèves &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classes -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 bg-danger text-white rounded-4">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase fw-semibold opacity-75">Classes</h6>
+                        <h2 class="display-6 fw-bold my-2">{{ totalClasses ?? 0 }}</h2>
+                    </div>
+                    <a href="{{ path('app_classe_index') }}" class="btn btn-light btn-sm fw-semibold mt-3 text-danger align-self-start shadow-sm">Gérer les classes &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enseignants -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 bg-warning text-dark rounded-4">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase fw-semibold opacity-75">Enseignants</h6>
+                        <h2 class="display-6 fw-bold my-2">{{ totalEnseignants ?? 0 }}</h2>
+                    </div>
+                    <a href="{{ path('app_enseignant_index') }}" class="btn btn-dark btn-sm fw-semibold mt-3 align-self-start shadow-sm">Gérer les enseignants &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cours -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100 bg-success text-white rounded-4">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase fw-semibold opacity-75">Cours / Matières</h6>
+                        <h2 class="display-6 fw-bold my-2">{{ totalCours ?? 0 }}</h2>
+                    </div>
+                    <a href="{{ path('app_cours_index') }}" class="btn btn-light btn-sm fw-semibold mt-3 text-success align-self-start shadow-sm">Gérer les cours &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100 bg-dark text-white rounded-4">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase fw-semibold opacity-75">Notes et Évaluations</h6>
+                        <h2 class="display-6 fw-bold my-2">{{ totalNotes ?? 0 }}</h2>
+                    </div>
+                    <a href="{{ path('app_note_index') }}" class="btn btn-light btn-sm fw-semibold mt-3 text-dark align-self-start shadow-sm">Gérer les notes &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

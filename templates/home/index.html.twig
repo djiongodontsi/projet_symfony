@@ -22,9 +22,8 @@
                         <h6 class="text-uppercase fw-semibold opacity-75">Élèves</h6>
                         <h2 class="display-6 fw-bold my-2">{{ totalEleves ?? 0 }}</h2>
                     </div>
-                    Get-ChildItem -Path templates -Recurse -Filter *.twig | ForEach-Object {
-    (Get-Content $_.FullName -Raw -Encoding UTF8) -replace 'app_eleves_index', 'app_eleve_index' | Set-Content $_.FullName -Encoding UTF8 -NoNewline
-}
+                    <a href="{{ path('app_eleve_index') }}" class="btn btn-light btn-sm fw-semibold mt-3 text-danger align-self-start shadow-sm">Gérer les élèves &rarr;</a>
+
                 </div>
             </div>
         </div>

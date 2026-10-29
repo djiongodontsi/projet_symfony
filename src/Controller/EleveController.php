@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Eleve;
 use App\Form\EleveType;
 use App\Repository\EleveRepository;
+use App\Repository\ClasseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,18 @@ use Symfony\Component\Routing\Attribute\Route;
 class EleveController extends AbstractController
 {
     #[Route('/eleves', name: 'app_eleve_index', methods: ['GET'])]
-    public function index(EleveRepository $eleveRepository): Response
+    public function index(Request $request, EleveRepository $eleveRepository, ClasseRepository $classeRepository): Response
     {
+        // Récupère la classe sélectionnée dans l'URL (ex: ?classe=3)
+        $classeId = $request->query->get('classe');
+
+        // Récupère les élèves filtrés ou non via le repository
+        $eleves = $eleveRepository->findByClasse($classeId);
+
         return $this->render('eleve/index.html.twig', [
-            'eleves' => $eleveRepository->findAll(),
+            'eleves' => $eleves,
+            'classes' => $classeRepository->findAll(), // Pour alimenter le menu déroulant
+            'current_classe' => $classeId,
         ]);
     }
 

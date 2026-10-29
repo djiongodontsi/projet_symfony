@@ -16,7 +16,20 @@ class EleveRepository extends ServiceEntityRepository
         parent::__construct($registry, Eleve::class);
     }
 
-//    /**
+    // <-- Ajoutez la méthode de filtre ici :
+    public function findByClasse($classe = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('e');
+
+        if ($classe) {
+            $queryBuilder->andWhere('e.classe = :classe')
+                ->setParameter('classe', $classe);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    //    /**
 //     * @return Eleve[] Returns an array of Eleve objects
 //     */
 //    public function findByExampleField($value): array
@@ -31,7 +44,7 @@ class EleveRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Eleve
+    //    public function findOneBySomeField($value): ?Eleve
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')

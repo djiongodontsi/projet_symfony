@@ -8,6 +8,23 @@
 
     <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
         <div class="card-body p-0">
+        {# Formulaire de filtre par classe #}
+        <form method="get" action="{{ path('app_eleve_index') }}" class="row g-3 mb-4 align-items-center">
+              <div class="col-auto">
+                 <label for="classe" class="col-form-label fw-bold">Filtrer par classe :</label>
+    </div>
+    <div class="col-auto">
+        <select name="classe" id="classe" class="form-select" onchange="this.form.submit()">
+            <option value="">Toutes les classes</option>
+            {% for classe in classes %}
+                {# Adaptez selon que vous stockez l'ID ou le nom de la classe #}
+                <option value="{{ classe.id }}" {% if current_classe == classe.id %}selected{% endif %}>
+    {{ classe.libelle }}
+</option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
             <table class="table table-hover mb-0 align-middle">
                 <thead class="table-light">
                     <tr>

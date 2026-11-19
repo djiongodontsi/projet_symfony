@@ -29,10 +29,10 @@
                                 {% if note.eleve %}{{ note.eleve.nom }} {{ note.eleve.prenom }}{% else %}N/A{% endif %}
                             </td>
                             <td>
-                                {% if note.cours %}{{ note.cours.nomCours ?? note.cours.libelle }}{% else %}N/A{% endif %}
+                                {% if note.eleve and note.eleve.classe %}{{ note.eleve.classe.nomClasse }}{% else %}N/A{% endif %}
                             </td>
                             <td>
-                                <span class="badge bg-dark fs-6">{{ note.valeur }}/20</span>
+                                <span class="badge bg-dark fs-6">{{ note.valeurNote }}/20</span>
                             </td>
                             <td class="text-end pe-4">
                                 <a href="{{ path('app_note_show', {'id': note.id}) }}" class="btn btn-sm btn-outline-info">Voir</a>

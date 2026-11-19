@@ -19,11 +19,11 @@ class CoursType extends AbstractType
             ->add('salle')
             ->add('enseignant', EntityType::class, [
                 'class' => Enseignant::class,
-                'choice_label' => 'id',
+                'choice_label' => fn (Enseignant $enseignant) => $enseignant->getPrenom().' '.$enseignant->getNom(),
             ])
             ->add('classe', EntityType::class, [
                 'class' => Classe::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nomClasse',
             ])
         ;
     }

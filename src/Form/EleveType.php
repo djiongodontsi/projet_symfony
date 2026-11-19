@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Eleve;
-use App\Entity\classe;
+use App\Entity\Classe;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,8 +19,8 @@ class EleveType extends AbstractType
             ->add('date_naissance')
             ->add('email')
             ->add('classe', EntityType::class, [
-                'class' => classe::class,
-                'choice_label' => 'id',
+                'class' => Classe::class,
+                'choice_label' => 'nomClasse',
             ])
         ;
     }

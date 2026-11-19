@@ -31,11 +31,11 @@ class Enseignant
      * @var Collection<int, Cours>
      */
     #[ORM\OneToMany(targetEntity: Cours::class, mappedBy: 'enseignant')]
-    private Collection $classe;
+    private Collection $cours;
 
     public function __construct()
     {
-        $this->classe = new ArrayCollection();
+        $this->cours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,27 +94,27 @@ class Enseignant
     /**
      * @return Collection<int, Cours>
      */
-    public function getClasse(): Collection
+    public function getCours(): Collection
     {
-        return $this->classe;
+        return $this->cours;
     }
 
-    public function addClasse(Cours $classe): static
+    public function addCour(Cours $cours): static
     {
-        if (!$this->classe->contains($classe)) {
-            $this->classe->add($classe);
-            $classe->setEnseignant($this);
+        if (!$this->cours->contains($cours)) {
+            $this->cours->add($cours);
+            $cours->setEnseignant($this);
         }
 
         return $this;
     }
 
-    public function removeClasse(Cours $classe): static
+    public function removeCour(Cours $cours): static
     {
-        if ($this->classe->removeElement($classe)) {
+        if ($this->cours->removeElement($cours)) {
             // set the owning side to null (unless already changed)
-            if ($classe->getEnseignant() === $this) {
-                $classe->setEnseignant(null);
+            if ($cours->getEnseignant() === $this) {
+                $cours->setEnseignant(null);
             }
         }
 

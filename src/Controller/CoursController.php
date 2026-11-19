@@ -21,31 +21,6 @@ class CoursController extends AbstractController
             'cours' => $coursRepository->findAll(),
         ]);
     }
-    #[Route('/{id}', name: 'app_cours_show', methods: ['GET'])]
-    public function show(Cours $cours): Response
-    {
-        return $this->render('cours/show.html.twig', [
-            'cour' => $cours,
-        ]);
-    }
-    #[Route('/{id}/edit', name: 'app_cours_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Cours $cours, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(CoursType::class, $cours);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('cours/edit.html.twig', [
-            'cour' => $cours,
-            'form' => $form,
-        ]);
-    }
-
     #[Route('/new', name: 'app_cours_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -62,6 +37,32 @@ class CoursController extends AbstractController
 
         return $this->render('cours/new.html.twig', [
             'cour' => $cour,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_cours_show', methods: ['GET'])]
+    public function show(Cours $cours): Response
+    {
+        return $this->render('cours/show.html.twig', [
+            'cour' => $cours,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_cours_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Cours $cours, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(CoursType::class, $cours);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('cours/edit.html.twig', [
+            'cour' => $cours,
             'form' => $form,
         ]);
     }

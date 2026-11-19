@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EleveRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,8 +28,20 @@ class Eleve
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\ManyToOne]
-    private ?classe $classe = null;
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Classe $classe = null;
+
+    /**
+     * @var Collection<int, Note>
+     */
+    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Note::class)]
+    private Collection $notes;
+
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,14 +96,41 @@ class Eleve
         return $this;
     }
 
-    public function getClasse(): ?classe
+    public function getClasse(): ?Classe
     {
         return $this->classe;
     }
 
-    public function setClasse(?classe $classe): static
+    public function setClasse(?Classe $classe): static
     {
         $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->notes->removeElement($note) && $note->getEleve() === $this) {
+            $note->setEleve(null);
+        }
 
         return $this;
     }

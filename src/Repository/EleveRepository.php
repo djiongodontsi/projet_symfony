@@ -17,7 +17,10 @@ class EleveRepository extends ServiceEntityRepository
     }
 
     // <-- Ajoutez la méthode de filtre ici :
-    public function findByClasse($classe = null)
+    /**
+     * @return Eleve[]
+     */
+    public function findByClasse(string|int|null $classe = null): array
     {
         $queryBuilder = $this->createQueryBuilder('e');
 

@@ -19,7 +19,7 @@ class NoteType extends AbstractType
             ->add('date')
             ->add('eleve', EntityType::class, [
                 'class' => Eleve::class,
-                'choice_label' => 'id',
+                'choice_label' => fn (Eleve $eleve) => $eleve->getPrenom().' '.$eleve->getNom(),
             ])
         ;
     }

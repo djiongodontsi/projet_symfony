@@ -19,7 +19,7 @@
             {% for classe in classes %}
                 {# Adaptez selon que vous stockez l'ID ou le nom de la classe #}
                 <option value="{{ classe.id }}" {% if current_classe == classe.id %}selected{% endif %}>
-    {{ classe.libelle }}
+    {{ classe.nomClasse }}
 </option>
             {% endfor %}
         </select>
